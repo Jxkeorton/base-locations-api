@@ -1,4 +1,5 @@
-from rest_framework import generics
+from django.db.models import Count
+from rest_framework import generics, filters
 from base_locations_api.permissions import IsSuperUserOrReadOnly
 from .models import Location
 from .serializers import LocationSerializer
@@ -7,15 +8,31 @@ class LocationList(generics.ListCreateAPIView):
     """
     List all locations or create a new location if superuser.
     """
-    queryset = Location.objects.all()
     serializer_class = LocationSerializer
     permission_classes = [IsSuperUserOrReadOnly]
+    queryset = Location.objects.annotate(
+        reviews_count=Count('review', distinct=True)
+    ).order_by('-created_at')
+    filter_backends = [
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    ordering_fields = [
+    'created_at',
+    'reviews_count',
+    ]
+    search_fields = [
+        'name',
+        'country'
+    ]
 
 
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve, update, or delete a location. Only superusers can modify.
     """
-    queryset = Location.objects.all()
+    queryset = Location.objects.annotate(
+        reviews_count=Count('review', distinct=True)
+    )
     serializer_class = LocationSerializer
     permission_classes = [IsSuperUserOrReadOnly]
