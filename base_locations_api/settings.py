@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-hxg%vbd5c7im9&m0fv6)cpm^5&59va2_w*knxbdry^^s$2qw8f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST'), '127.0.0.1']
 
 
 # Application definition
@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework',
     'django_filters',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     
     'locations',
     'profiles',

@@ -2,7 +2,7 @@
 
 ## Models Diagram
 
-![Database Diagram](./docs/images/db-diagram.png)
+![Database Diagram](./docs/images/database-diagram.png)
 
 # Database Relationships
 
