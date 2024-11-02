@@ -18,7 +18,7 @@ class ReviewList(generics.ListCreateAPIView):
         filters.SearchFilter,
     ]
     filterset_fields = [
-        'location__id',
+        'location__name',
         'owner__username',
     ]
     ordering_fields = [

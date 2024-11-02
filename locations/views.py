@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Count
 from rest_framework import generics, filters
 from base_locations_api.permissions import IsSuperUserOrReadOnly
@@ -16,6 +17,10 @@ class LocationList(generics.ListCreateAPIView):
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'country',
     ]
     ordering_fields = [
     'created_at',
