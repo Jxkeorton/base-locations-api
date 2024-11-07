@@ -25,7 +25,7 @@ class LocationSerializer(serializers.ModelSerializer):
         if value is not None:
             if value < 0:
                 raise serializers.ValidationError('Rock drop cannot be negative')
-            if value > 3000:
+            if value > 5000:
                 raise serializers.ValidationError('Rock drop seems unreasonably high. Please verify.')
         return value
 
@@ -33,7 +33,7 @@ class LocationSerializer(serializers.ModelSerializer):
         if value is not None:
             if value < 0:
                 raise serializers.ValidationError('Total height cannot be negative')
-            if value > 5000:
+            if value > 8000:
                 raise serializers.ValidationError('Total height seems unreasonably high. Please verify.')
         return value
 
