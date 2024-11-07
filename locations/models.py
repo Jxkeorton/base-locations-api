@@ -9,8 +9,8 @@ class Location(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     rock_drop = models.IntegerField(null=True)
     total_height = models.IntegerField(null=True, blank=True)
-    access = models.CharField(max_length=250)
-    cliff_aspect = models.CharField(max_length=3)
+    access = models.CharField(max_length=250, null=True, blank=True)
+    cliff_aspect = models.CharField(max_length=3, null=True, blank=True)
     opened_by = models.CharField(max_length=100, null=True, blank=True)
     date_opened = models.DateField(null=True, blank=True)
     image = models.ImageField(
