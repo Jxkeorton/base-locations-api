@@ -41,3 +41,7 @@ class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     )
     serializer_class = LocationSerializer
     # permission_classes = [IsSuperUserOrReadOnly]
+    
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        print(f"Updated Location: {instance}")
