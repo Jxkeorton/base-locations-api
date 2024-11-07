@@ -38,9 +38,10 @@ class LocationSerializer(serializers.ModelSerializer):
         return value
 
     def validate_cliff_aspect(self, value):
-        valid_aspects = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
-        if value not in valid_aspects:
-            raise serializers.ValidationError(f'Cliff aspect must be one of {", ".join(valid_aspects)}')
+        if value is not None:
+            valid_aspects = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+            if value not in valid_aspects:
+                raise serializers.ValidationError(f'Cliff aspect must be one of {", ".join(valid_aspects)}')
         return value
 
     def validate(self, data):
