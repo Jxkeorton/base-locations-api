@@ -3,12 +3,14 @@ from .models import Location
 
 class LocationSerializer(serializers.ModelSerializer):
     def validate_image(self, value):
-        if value and value.size > 1024 * 1024 * 2:  # Check size only if image exists
-            raise serializers.ValidationError('Image size larger than 2MB!')
-        if value and value.image.width > 4096:  # Check width if image exists
-            raise serializers.ValidationError('Image width larger than 4096px')
-        if value and value.image.height > 4096:  # Check height if image exists
-            raise serializers.ValidationError('Image height larger than 4096px')
+        """
+        Validate that the URL is a valid URL.
+        """
+        if value:
+            from urllib.parse import urlparse
+            result = urlparse(value)
+            if not result.scheme in ['http', 'https']:
+                raise serializers.ValidationError('Invalid URL scheme. Only http and https are allowed.')
         return value
 
     def validate_latitude(self, value):
