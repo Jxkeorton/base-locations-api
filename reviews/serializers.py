@@ -5,6 +5,8 @@ from .models import Review
 class ReviewSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
     
@@ -27,7 +29,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Review
-        fields = ['id', 'owner','is_owner', 'location', 'subject', 'content', 'hazard', 'created_at', 'updated_at']
+        fields = ['id', 'owner','is_owner','profile_id', 'profile_image', 'location', 'subject', 'content', 'hazard', 'created_at', 'updated_at']
 
 
 class ReviewDetailSerializer(ReviewSerializer):
