@@ -9,6 +9,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
+    location = serializers.ReadOnlyField(source='location.id')
+    location_name = serializers.ReadOnlyField(source='location.name')
     
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -29,7 +31,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Review
-        fields = ['id', 'owner','is_owner','profile_id', 'profile_image', 'location', 'subject', 'content', 'hazard', 'created_at', 'updated_at']
+        fields = ['id', 'owner','is_owner','location', 'location_name','profile_id', 'profile_image', 'location', 'subject', 'content', 'hazard', 'created_at', 'updated_at']
 
 
 class ReviewDetailSerializer(ReviewSerializer):
