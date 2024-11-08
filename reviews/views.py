@@ -38,5 +38,5 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve a review or update, delete a Review if you own it
     """
     permission_classes = [IsOwnerOrReadOnly]
-    serializer_classes = ReviewDetailSerializer
+    serializer_class = ReviewDetailSerializer
     queryset = Review.objects.all()
