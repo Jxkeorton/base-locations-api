@@ -42,4 +42,4 @@ class ReviewDetailSerializer(ReviewSerializer):
     
     class Meta:
         model = Review
-        fields = ReviewSerializer.Meta.fields + ['location_name'] 
+        fields = ReviewSerializer.Meta.fields + ['location', 'location_name'] 
