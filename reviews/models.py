@@ -11,4 +11,4 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} by {self.owner.username} at {self.location.name}"
+        return f"{self.subject} by {self.owner.username} at {self.location.name if self.location else 'Unknown Location'}"
