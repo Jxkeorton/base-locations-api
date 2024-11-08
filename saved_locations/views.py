@@ -1,11 +1,10 @@
 from rest_framework import generics, permissions
-from rest_framework.response import Response
-from rest_framework import status
+from base_locations_api.permissions import IsOwnerOrReadOnly
 from .models import SavedLocation
 from .serializers import SavedLocationSerializer
 
 class SavedLocationList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = SavedLocationSerializer
 
     def get_queryset(self):
@@ -15,7 +14,7 @@ class SavedLocationList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class SavedLocationDetail(generics.RetrieveDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = SavedLocationSerializer
     queryset = SavedLocation.objects.all()
 
