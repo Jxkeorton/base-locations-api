@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     'locations',
     'profiles',
     'reviews',
+    'saved_locations',	
 ]
 SITE_ID = 1
 MIDDLEWARE = [
