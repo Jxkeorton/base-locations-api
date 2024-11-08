@@ -7,9 +7,6 @@ class SavedLocationList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = SavedLocationSerializer
 
-    def get_queryset(self):
-        return SavedLocation.objects.filter(owner=self.request.user)
-
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
