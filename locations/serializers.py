@@ -1,7 +1,18 @@
 from rest_framework import serializers
 from .models import Location
+from saved_locations.models import SavedLocation
 
 class LocationSerializer(serializers.ModelSerializer):
+    is_saved = serializers.SerializerMethodField()
+
+    def get_is_saved(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return SavedLocation.objects.filter(
+                owner=request.user,
+                location=obj
+            ).exists()
+        return False
     def validate_image(self, value):
         """
         Validate that the URL is a valid URL.
@@ -68,5 +79,5 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'created_at', 'updated_at', 'name', 'country',
             'longitude', 'latitude', 'rock_drop', 'total_height', 'access',
-            'cliff_aspect', 'opened_by', 'date_opened', 'image'
+            'cliff_aspect', 'opened_by', 'date_opened', 'image', 'is_saved',
         ]
