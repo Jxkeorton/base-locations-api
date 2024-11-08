@@ -14,4 +14,5 @@ urlpatterns = [
     path('', include('locations.urls')),
     path('', include('profiles.urls')),
     path('', include('reviews.urls')),
+    path('', include('saved_locations.urls')),
 ]
