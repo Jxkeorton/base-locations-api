@@ -25,10 +25,6 @@ class ReviewSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'content': 'This field is required.'})
         return attrs
     
-    def create(self, validated_data):
-        user = self.context['request'].user
-        return Review.objects.create(owner=user, **validated_data)
-    
     class Meta:
         model = Review
         fields = ['id', 'owner','is_owner', 'location', 'subject', 'content', 'hazard', 'created_at', 'updated_at']
