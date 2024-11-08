@@ -39,3 +39,7 @@ class ReviewDetailSerializer(ReviewSerializer):
     """
     location = serializers.ReadOnlyField(source='location.id')
     location_name = serializers.ReadOnlyField(source='location.name')
+    
+    class Meta:
+        model = Review
+        fields = ReviewSerializer.Meta.fields + ['location_name'] 
