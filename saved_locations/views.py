@@ -6,7 +6,9 @@ from .serializers import SavedLocationSerializer
 class SavedLocationList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = SavedLocationSerializer
-    queryset = SavedLocation.objects.all()
+
+    def get_queryset(self):
+        return SavedLocation.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -14,7 +16,6 @@ class SavedLocationList(generics.ListCreateAPIView):
 class SavedLocationDetail(generics.RetrieveDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = SavedLocationSerializer
-    queryset = SavedLocation.objects.all()
-
+    
     def get_queryset(self):
         return SavedLocation.objects.filter(owner=self.request.user)
