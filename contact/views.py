@@ -5,7 +5,7 @@ from .models import Contact
 from .serializers import ContactSerializer
 
 class ContactPermission(permissions.BasePermission):
-    def has_permission(self, request):
+    def has_permission(self, request, view):
         if request.method == 'POST':
             return True
         return request.user and request.user.is_superuser
