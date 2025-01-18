@@ -28,11 +28,11 @@ class ReviewList(generics.ListCreateAPIView):
     search_fields = [
         'owner__username'
     ]
-    
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-        
-    
+
+
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a review or update, delete a Review if you own it

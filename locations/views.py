@@ -5,6 +5,7 @@ from base_locations_api.permissions import IsSuperUserOrReadOnly
 from .models import Location
 from .serializers import LocationSerializer
 
+
 class LocationList(generics.ListCreateAPIView):
     """
     List all locations or create a new location if superuser.
@@ -23,8 +24,8 @@ class LocationList(generics.ListCreateAPIView):
         'country',
     ]
     ordering_fields = [
-    'created_at',
-    'reviews_count',
+        'created_at',
+        'reviews_count',
     ]
     search_fields = [
         'name',
@@ -41,7 +42,7 @@ class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     )
     serializer_class = LocationSerializer
     permission_classes = [IsSuperUserOrReadOnly]
-    
+
     def perform_update(self, serializer):
         instance = serializer.save()
         print(f"Updated Location: {instance}")

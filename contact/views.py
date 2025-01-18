@@ -4,11 +4,13 @@ from rest_framework.response import Response
 from .models import Contact
 from .serializers import ContactSerializer
 
+
 class ContactPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method == 'POST':
             return True
         return request.user and request.user.is_superuser
+
 
 class ContactList(generics.ListCreateAPIView):
     queryset = Contact.objects.all()
@@ -29,7 +31,8 @@ class ContactList(generics.ListCreateAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+
 class ContactDetail(generics.RetrieveDestroyAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer

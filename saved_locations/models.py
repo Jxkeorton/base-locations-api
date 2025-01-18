@@ -1,9 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class SavedLocation(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_locations')
-    location = models.ForeignKey('locations.Location', on_delete=models.CASCADE, related_name='saved_by')
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='saved_locations'
+    )
+    location = models.ForeignKey(
+        'locations.Location', on_delete=models.CASCADE, related_name='saved_by'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

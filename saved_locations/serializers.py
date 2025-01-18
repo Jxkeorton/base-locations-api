@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import SavedLocation
 
+
 class SavedLocationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     location_name = serializers.ReadOnlyField(source='location.name')
@@ -23,11 +24,13 @@ class SavedLocationSerializer(serializers.ModelSerializer):
         """
         user = self.context['request'].user
         location = data.get('location')
-        
+
         # Check for existing saved location
-        if SavedLocation.objects.filter(owner=user, location=location).exists():
+        if SavedLocation.objects.filter(
+            owner=user, location=location
+        ).exists():
             raise serializers.ValidationError({
                 "location": "You have already saved this location."
             })
-        
+
         return data
