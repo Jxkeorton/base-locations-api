@@ -4,20 +4,24 @@ The BASE Locations API is a Django REST Framework backend that serves as a platf
 
 ## Models Diagram
 
+**Additional**
+The contact table was created to save contact form responses and has the fields
+- id (integer)
+- name (text)
+- email (email)
+- message (text)
+- created_at (date)
+- read (Boolean)
+
 ![Database Diagram](./docs/images/database-diagram.png)
 
-# Database Relationships
+## Database Relationships
 
 - **Users** and **Profiles** have a **one-to-one** relationship.
 - **Users** and **Reviews** have a **one-to-many** relationship.
 - **Locations** and **Reviews** have a **one-to-many** relationship.
 
-## API Table
-
-<details>
-<summary>API Table</summary>
-
-# API Endpoints
+## API Endpoints Table
 
 | Endpoint | HTTP Method | Action | Authentication Required | Permission |
 |----------|-------------|---------|------------------------|------------|
@@ -44,8 +48,14 @@ The BASE Locations API is a Django REST Framework backend that serves as a platf
 | `/saved-locations/` | POST | Save a location | Yes | Authenticated users |
 | `/saved-locations/<int:pk>/` | GET | Retrieve a specific saved location | Yes | Save owner only |
 | `/saved-locations/<int:pk>/` | DELETE | Remove a saved location | Yes | Save owner only |
+| `/contact/<int:pk>/` | DELETE | Remove a contact form response | Yes | Admin |
+| `/contact/<int:pk>/` | GET | Marks message as read | Yes | Admin |
+| `/contact/` | GET | Get list of form responses | Yes | Admin |
+| `/contact/` | POST | Create a message for admins | No | Anyone |
 
-## Features
+</details>
+
+## API Features
 
 - Locations support filtering by country and searching by name/country
 - Reviews can be filtered by location name and owner username
@@ -53,7 +63,54 @@ The BASE Locations API is a Django REST Framework backend that serves as a platf
 - Appropriate CORS headers are set up for frontend communication
 - JWT authentication is used in production, while session authentication is used in development
 - All list endpoints are paginated with 10 items per page
+
+## API Endpoint images
+
+<details>
+<summary>Home endpoint</summary>
+
+![Home Endpoint image](docs/features/Home%20-%20API.png)
+
 </details>
+
+<details>
+<summary>Locations</summary>
+
+![Locations Endpoint image](docs/features/Locations%20-%20API.png)
+
+</details>
+
+<details>
+<summary>Reviews</summary>
+
+![Reviews Endpoint image](docs/features/reviews%20-%20API.png)
+
+</details>
+
+<details>
+<summary>Profiles</summary>
+
+![Profiles Endpoint image](docs/features/profiles%20-%20API.png)
+
+</details>
+
+<details>
+<summary>Contact</summary>
+
+![Profiles Endpoint image](docs/features/contact%20-%20API.png)
+
+</details>
+
+## Testing 
+
+### Functional tests
+Carried out alongside the front-end functional tests. If an event occurs that affects the API then the API URL is checked to see if the change has been reflected.
+
+### Pep8
+All pages were run through the official [Pep 8](https://pep8ci.herokuapp.com/#)
+ validator to ensure all code was pep8 compliant. Some errors were shown due to blank spacing and lines too long, 1 line instead of 2 expected. All of these errors were resolved and code passed through the validator.
+
+ Also the settings.py had a few lines with more than 79 characters, These were left since they are single string values.
 
 ### Technologies Used (DRF/API Specific)
 
